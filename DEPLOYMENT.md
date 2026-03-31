@@ -116,17 +116,28 @@ NEXT_PUBLIC_API_URL=http://localhost:5000
 6. Add environment variable: `GROK_API_KEY`
 7. Deploy!
 
-### Frontend → Vercel
+### Frontend → Render (Instead of Vercel)
 
-1. Push `frontend/` to a GitHub repo
-2. Go to [Vercel Dashboard](https://vercel.com)
-3. Import your GitHub repo
+1. Go back to your [Render Dashboard](https://dashboard.render.com)
+2. Create another **New Web Service**
+3. Connect the same GitHub repo (`raghuvarma-gilth/heart`)
 4. Settings:
+   - **Name**: `cardiomind-frontend` (or similar)
    - **Root Directory**: `frontend`
-   - **Framework Preset**: Next.js
-5. Add all `NEXT_PUBLIC_*` environment variables
-6. Update `NEXT_PUBLIC_API_URL` to your Render backend URL
-7. Deploy!
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+5. Click **Environment Variables** and add ALL the keys from your `frontend/.env.local` file:
+   - `NEXT_PUBLIC_FIREBASE_API_KEY`
+   - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+   - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+   - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+   - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+   - `NEXT_PUBLIC_FIREBASE_APP_ID`
+   - `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`
+   - `NEXT_PUBLIC_API_URL` (Make sure this points to your new Render backend URL! e.g., `https://cardiomind-api.onrender.com`)
+   - `NEXT_PUBLIC_GROQ_API_KEY`
+6. Deploy!
 
 ### Firebase Setup
 
