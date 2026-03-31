@@ -65,7 +65,7 @@ HeartGuard/
 ### 1. Backend Setup
 ```bash
 cd backend
-pip install -r requirements.txt
+pip install --prefer-binary -r requirements.txt
 python train.py          # Train the ML model
 python app.py            # Start Flask server (port 5000)
 ```
@@ -110,7 +110,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000
 4. Connect your GitHub repo
 5. Settings:
    - **Root Directory**: `backend`
-   - **Build Command**: `pip install -r requirements.txt`
+   - **Build Command**: `pip install --prefer-binary -r requirements.txt`
    - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
    - **Environment**: Python 3
 6. Add environment variable: `GROK_API_KEY`
