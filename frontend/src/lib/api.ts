@@ -127,13 +127,6 @@ Provide: 1) Breathing exercise with detailed steps 2) Quick 2-minute meditation 
     return callGroqChat(message, history);
   },
 
-  // Emotion wellness insight - direct Groq call from frontend
-  async grokEmotion(emotion: string, confidence: number) {
-    const prompt = `Detected emotion: ${emotion} (${confidence}% confidence).
-
-Provide: 1) Emotional insight and what this could mean 2) How this emotion impacts heart health 3) Recommended actions for emotional wellness 4) A quick 1-minute wellness exercise 5) An encouraging, warm message. Be concise and supportive.`;
-    return callGroq(prompt);
-  },
 
   // Model info from backend
   async getModelInfo() {
@@ -142,40 +135,3 @@ Provide: 1) Emotional insight and what this could mean 2) How this emotion impac
   },
 };
 
-// Emotion detection using Groq Vision API
-export async function analyzeEmotionWithGroq(imageBase64: string) {
-  if (!GROQ_API_KEY) return { emotion: 'neutral', confidence: 0, error: 'No Groq API key configured' };
-  try {
-    const res = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'llama-3.2-11b-vision-preview',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: 'Analyze the facial emotion in this image. Respond with ONLY a JSON object like: {"emotion": "happy", "confidence": 85}. Possible emotions: happy, sad, angry, surprised, fearful, disgusted, neutral, stressed, anxious, calm.' },
-              { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${imageBase64}` } }
-            ]
-          }
-        ],
-        max_tokens: 150,
-        temperature: 0.1,
-      }),
-    });
-    if (!res.ok) {
-      return { emotion: 'neutral', confidence: 0, error: 'Groq API error' };
-    }
-    const data = await res.json();
-    const text = data.choices?.[0]?.message?.content || '';
-    const jsonMatch = text.match(/\{[\s\S]*?\}/);
-    if (jsonMatch) return JSON.parse(jsonMatch[0]);
-    return { emotion: 'neutral', confidence: 0 };
-  } catch {
-    return { emotion: 'neutral', confidence: 0, error: 'Groq analysis failed' };
-  }
-}

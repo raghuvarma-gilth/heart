@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { FiHeart, FiActivity, FiShield, FiSmile, FiCalendar, FiCpu, FiArrowRight, FiCheck, FiZap } from 'react-icons/fi';
+import { FiHeart, FiActivity, FiShield, FiCalendar, FiCpu, FiArrowRight, FiCheck, FiZap } from 'react-icons/fi';
 
 const features = [
   { icon: FiHeart, title: 'Heart Risk Prediction', desc: 'AI-powered analysis using advanced ML models with 95%+ accuracy', color: '#E63946', bg: 'rgba(230, 57, 70, 0.12)' },
   { icon: FiActivity, title: 'Stress Relief Hub', desc: 'Breathing exercises, meditation, and ambient soundscapes', color: '#457B9D', bg: 'rgba(69, 123, 157, 0.12)' },
   { icon: FiShield, title: 'Symptom Checker', desc: 'Intelligent symptom analysis powered by Grok AI', color: '#2A9D8F', bg: 'rgba(42, 157, 143, 0.12)' },
-  { icon: FiSmile, title: 'Emotion Detection', desc: 'Real-time facial emotion analysis with Gemini AI', color: '#E9C46A', bg: 'rgba(233, 196, 106, 0.12)' },
+
   { icon: FiCalendar, title: 'Appointments', desc: 'Real-time booking with instant status updates', color: '#F4A261', bg: 'rgba(244, 162, 97, 0.12)' },
   { icon: FiCpu, title: 'AI Health Assistant', desc: 'Personal healthcare chatbot for guidance', color: '#7C3AED', bg: 'rgba(124, 58, 237, 0.12)' },
 ];

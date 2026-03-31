@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
-import { FiHeart, FiActivity, FiAlertCircle, FiSmile, FiCalendar, FiTrendingUp, FiMessageCircle, FiArrowRight } from 'react-icons/fi';
+import { FiHeart, FiActivity, FiAlertCircle, FiCalendar, FiTrendingUp, FiMessageCircle, FiArrowRight } from 'react-icons/fi';
 
 const cards = [
   { href: '/dashboard/predict', icon: FiHeart, title: 'Heart Prediction', desc: 'AI-powered cardiac risk analysis', color: '#E63946', gradient: 'from-red-500 to-rose-600' },
   { href: '/dashboard/stress', icon: FiActivity, title: 'Stress Relief', desc: 'Breathing exercises & meditation', color: '#457B9D', gradient: 'from-blue-500 to-cyan-600' },
   { href: '/dashboard/symptoms', icon: FiAlertCircle, title: 'Symptom Checker', desc: 'Analyze your symptoms with AI', color: '#2A9D8F', gradient: 'from-teal-500 to-emerald-600' },
-  { href: '/dashboard/emotion', icon: FiSmile, title: 'Emotion AI', desc: 'Real-time emotion detection', color: '#E9C46A', gradient: 'from-amber-500 to-yellow-600' },
+
   { href: '/dashboard/appointments', icon: FiCalendar, title: 'Appointments', desc: 'Book & manage appointments', color: '#F4A261', gradient: 'from-orange-500 to-amber-600' },
   { href: '/dashboard/chat', icon: FiMessageCircle, title: 'AI Chat', desc: 'Health assistant chatbot', color: '#7C3AED', gradient: 'from-purple-500 to-violet-600' },
 ];

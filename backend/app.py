@@ -247,16 +247,6 @@ def grok_chat():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/grok/emotion', methods=['POST'])
-def grok_emotion():
-    try:
-        data = request.get_json()
-        prompt = f"""Detected emotion: {data.get('emotion','neutral')} ({data.get('confidence',0)}% confidence).
-
-Provide: 1) Emotional insight 2) Heart health impact 3) Recommended actions 4) Quick 1-min wellness exercise 5) Encouraging message. Be concise and warm."""
-        return jsonify(call_grok(prompt))
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/model/info', methods=['GET'])
 def model_info():

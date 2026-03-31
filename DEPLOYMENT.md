@@ -41,7 +41,7 @@ HeartGuard/
 │       │   │   ├── predict/page.tsx
 │       │   │   ├── stress/page.tsx
 │       │   │   ├── symptoms/page.tsx
-│       │   │   ├── emotion/page.tsx
+
 │       │   │   ├── appointments/page.tsx
 │       │   │   └── chat/page.tsx
 │       │   └── admin/
@@ -95,7 +95,7 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+
 ```
 
 ---
@@ -145,7 +145,6 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 | Key | Provider | Used For |
 |-----|----------|----------|
 | `GROK_API_KEY` | [x.ai](https://x.ai) | Backend AI reasoning, chatbot, symptom analysis |
-| `NEXT_PUBLIC_GEMINI_API_KEY` | [Google AI Studio](https://aistudio.google.com) | Frontend emotion detection only |
 | Firebase Config | [Firebase Console](https://console.firebase.google.com) | Auth + Database |
 
 ---
@@ -157,13 +156,12 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 │   Frontend   │────▶│   Backend    │────▶│   Grok API   │
 │  (Next.js)   │     │   (Flask)    │     │  (Reasoning)  │
 │              │     │              │     └──────────────┘
-│  Gemini API  │     │  ML Model    │
-│  (Emotion)   │     │  (Predict)   │
+│              │     │  ML Model    │
+│              │     │  (Predict)   │
 └──────────────┘     └──────────────┘
 ```
 
-- **Gemini API** → Frontend ONLY → Webcam emotion detection
-- **Grok API** → Backend ONLY → All reasoning, analysis, chatbot
+- **Grok API** → Backend → All reasoning, analysis, chatbot
 - **ML Model** → Backend → Heart disease prediction (95%+ accuracy)
 
 ---

@@ -4,14 +4,14 @@ import { useTheme } from '@/context/ThemeContext';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FiHeart, FiHome, FiActivity, FiAlertCircle, FiSmile, FiCalendar, FiLogOut, FiSun, FiMoon, FiMessageCircle, FiMenu, FiX } from 'react-icons/fi';
+import { FiHeart, FiHome, FiActivity, FiAlertCircle, FiCalendar, FiLogOut, FiSun, FiMoon, FiMessageCircle, FiMenu, FiX } from 'react-icons/fi';
 
 const navItems = [
   { href: '/dashboard', icon: FiHome, label: 'Overview' },
   { href: '/dashboard/predict', icon: FiHeart, label: 'Heart Check' },
   { href: '/dashboard/stress', icon: FiActivity, label: 'Stress Relief' },
   { href: '/dashboard/symptoms', icon: FiAlertCircle, label: 'Symptoms' },
-  { href: '/dashboard/emotion', icon: FiSmile, label: 'Emotion AI' },
+
   { href: '/dashboard/appointments', icon: FiCalendar, label: 'Appointments' },
   { href: '/dashboard/chat', icon: FiMessageCircle, label: 'AI Chat' },
 ];

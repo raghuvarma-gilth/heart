@@ -11,7 +11,7 @@ const roleInfo = {
   patient: {
     title: '🏥 Patient',
     desc: 'Heart risk prediction, stress relief, symptom checker, and AI chat.',
-    features: ['Heart Prediction AI', 'Stress Relief Hub', 'Emotion Detection', 'AI Health Chat'],
+    features: ['Heart Prediction AI', 'Stress Relief Hub', 'Symptom Checker', 'AI Health Chat'],
   },
   admin: {
     title: '👨‍⚕️ Doctor / Admin',
