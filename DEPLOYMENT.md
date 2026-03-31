@@ -110,7 +110,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000
 4. Connect your GitHub repo
 5. Settings:
    - **Root Directory**: `backend`
-   - **Build Command**: `pip install -r requirements.txt && python train.py`
+   - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
    - **Environment**: Python 3
 6. Add environment variable: `GROK_API_KEY`
