@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { FiHeart, FiActivity, FiShield, FiCalendar, FiCpu, FiArrowRight, FiCheck, FiZap } from 'react-icons/fi';
@@ -17,6 +18,7 @@ const features = [
 
 export default function LandingPage() {
   const { user, userData } = useAuth();
+  const { dark } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -115,8 +117,8 @@ export default function LandingPage() {
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
                 >
-                  <div className="text-[10px] text-gray-300 uppercase tracking-wider font-medium">{s.label}</div>
-                  <div className="text-lg font-bold" style={{ color: '#ffffff' }}>{s.val}</div>
+                  <div className={`text-[10px] uppercase tracking-wider font-medium ${dark ? 'text-gray-300' : 'text-gray-500'}`}>{s.label}</div>
+                  <div className={`text-lg font-bold ${dark ? 'text-white' : 'text-gray-800'}`}>{s.val}</div>
                 </motion.div>
               ))}
             </div>
@@ -143,8 +145,8 @@ export default function LandingPage() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110" style={{ background: f.bg }}>
                 <f.icon className="text-xl" style={{ color: f.color }} />
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#ffffff' }}>{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#d1d5db' }}>{f.desc}</p>
+              <h3 className={`text-lg font-semibold mb-2 ${dark ? 'text-white' : 'text-gray-800'}`}>{f.title}</h3>
+              <p className={`text-sm leading-relaxed ${dark ? 'text-gray-300' : 'text-gray-600'}`}>{f.desc}</p>
             </motion.div>
           ))}
         </div>
