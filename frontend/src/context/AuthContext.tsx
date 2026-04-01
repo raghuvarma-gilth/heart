@@ -29,28 +29,51 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
+// Helper: fetch with timeout so Firestore never hangs forever
+function fetchWithTimeout<T>(promise: Promise<T>, ms = 8000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), ms))
+  ]);
+}
+
+// Build fallback userData from Firebase Auth user when Firestore is unavailable
+function fallbackUserData(u: User): UserData {
+  return {
+    uid: u.uid,
+    name: u.displayName || u.email?.split('@')[0] || 'User',
+    email: u.email || '',
+    role: 'patient',
+    createdAt: null,
+  };
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  // Track if login/signup already fetched userData to avoid double fetch
   const justAuthenticatedRef = useRef(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        // Skip Firestore fetch if login/signup already set userData
         if (justAuthenticatedRef.current) {
           justAuthenticatedRef.current = false;
           setLoading(false);
           return;
         }
         try {
-          const snap = await getDoc(doc(db, 'users', u.uid));
-          if (snap.exists()) setUserData(snap.data() as UserData);
+          const snap = await fetchWithTimeout(getDoc(doc(db, 'users', u.uid)));
+          if (snap.exists()) {
+            setUserData(snap.data() as UserData);
+          } else {
+            // User exists in Auth but not Firestore — use fallback
+            setUserData(fallbackUserData(u));
+          }
         } catch (e) {
-          console.error('Error fetching user data:', e);
+          console.warn('Firestore fetch failed, using fallback user data:', e);
+          setUserData(fallbackUserData(u));
         }
       } else {
         setUserData(null);
@@ -62,16 +85,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const cred = await signInWithEmailAndPassword(auth, email, password);
-    // Fetch user data immediately and set it - prevents double fetch
     try {
-      const snap = await getDoc(doc(db, 'users', cred.user.uid));
+      const snap = await fetchWithTimeout(getDoc(doc(db, 'users', cred.user.uid)));
       if (snap.exists()) {
         setUserData(snap.data() as UserData);
-        justAuthenticatedRef.current = true;
+      } else {
+        setUserData(fallbackUserData(cred.user));
       }
+      justAuthenticatedRef.current = true;
     } catch (err) {
-      console.warn('Firestore offline or failed to fetch immediately during login', err);
-      // Fallback: onAuthStateChanged will handle the state update
+      console.warn('Firestore fetch failed during login, using fallback:', err);
+      setUserData(fallbackUserData(cred.user));
+      justAuthenticatedRef.current = true;
     }
   };
 
@@ -84,7 +109,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       role,
       createdAt: serverTimestamp(),
     };
-    await setDoc(doc(db, 'users', cred.user.uid), data);
+    try {
+      await fetchWithTimeout(setDoc(doc(db, 'users', cred.user.uid), data));
+    } catch (err) {
+      console.warn('Firestore write failed during signup:', err);
+    }
     setUserData(data);
     justAuthenticatedRef.current = true;
   };
