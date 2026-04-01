@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://cardiomind.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://heart-1-yf8q.onrender.com';
 const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY || '';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
