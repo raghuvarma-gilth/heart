@@ -115,8 +115,8 @@ export default function LandingPage() {
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
                 >
-                  <div className="text-[10px] text-gray-400 uppercase tracking-wider">{s.label}</div>
-                  <div className="text-lg font-bold text-white">{s.val}</div>
+                  <div className="text-[10px] text-gray-300 uppercase tracking-wider font-medium">{s.label}</div>
+                  <div className="text-lg font-bold" style={{ color: '#ffffff' }}>{s.val}</div>
                 </motion.div>
               ))}
             </div>
@@ -143,8 +143,8 @@ export default function LandingPage() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110" style={{ background: f.bg }}>
                 <f.icon className="text-xl" style={{ color: f.color }} />
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-white">{f.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{f.desc}</p>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#ffffff' }}>{f.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#d1d5db' }}>{f.desc}</p>
             </motion.div>
           ))}
         </div>
